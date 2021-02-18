@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React ,{useState,useEffect} from 'react';
+import { flushSync } from 'react-dom';
+import './App.css'
+import RecordVedio from './Component/recordVedio';
+import UploadVedio from './Component/uploadVedio';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+  const [showRecord,setVRecord]=useState(false)
+ 
+return(
+  <div>
+
+      <h1>vedio upload</h1>
+      <UploadVedio/>
+      <br/><br/><br/>
+
+      <h1>WebCam</h1>
+     <button onClick={()=>setVRecord(true)}>start Web Cam</button>
+        { showRecord && <RecordVedio/> }
+      
+      
+  </div>
   );
 }
 
