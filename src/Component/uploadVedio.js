@@ -7,20 +7,46 @@ function UploadVedio() {
     const [file,setFile]=useState('')
     const [fileName,setFileName]=useState('')
     const [fileType,setfileType]=useState('')
+    const [loading ,setLoading]=useState(false)
+    const [showBaseValue ,setValue]=useState(false)
+    const [val ,setVal]=useState('')
 
     const changeFunction=(e)=>{
         setShow(true)
         setFile(e.target.files[0]);
         setFileName(e.target.files[0].name)
         setfileType(e.target.files[0].type)
-        // var reader = new FileReader();
-        //  reader.readAsDataURL(file);
+       }
+      
+      // function for base url
+    const baseFunction=function(){
+      setValue(true)
+      console.log(btoa(file))
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
         
+        reader.onload = function () {
+          setLoading(true)
+          console.log(reader.result);//base64encoded string
+           setVal(reader.result)
+
+          func(reader.result)
+        };
+       }
+
+       const func=async function (val){
+        await (document.getElementById('base-url').innerHTML=`Base64 Url : ${val}`)
+
        }
 return(
   <div>
    <input type="file" name="vedio" accept="video/*" onChange={(e)=>changeFunction(e)}/>
       <br/>
+      {showFile && <button onClick={baseFunction}>Generate base64 URL </button>}
+      {showBaseValue ? loading ? <p id='base-url'></p> : 'loading....' : null}
+    
+     
+
       {/* {showFile && <video width="100%" controls autoPlay loop>
           <source src={fileName} type={fileType} />
        </video> } */}
